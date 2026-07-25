@@ -1,0 +1,26 @@
+# --- artéfacts Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+.venv/
+venv/
+
+# --- données dérivées, reconstruites par `python -m dofus_opti.ingest.build`
+#
+# Volontairement hors du dépôt : ~40 Mo régénérés en 18 s, qui deviennent faux
+# à chaque mise à jour du jeu, et qui restent la propriété d'Ankama.
+# Voir la section « Les données » du README.
+data/cache/
+data/*.db
+data/*.db-wal
+data/*.db-shm
+
+# --- exports de builds produits localement
+data/*.json
+
+# --- éditeurs
+.vscode/
+.idea/
+*.swp
+.DS_Store

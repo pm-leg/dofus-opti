@@ -1,0 +1,1421 @@
+{
+ "sets": [
+  {
+   "ankama_id": 58,
+   "name": "Panoplie du Dragon Cochon",
+   "items": 7,
+   "level": 108,
+   "contains_cosmetics": false,
+   "contains_cosmetics_only": false,
+   "effects": {
+    "1": null,
+    "2": [
+     {
+      "int_minimum": 50,
+      "int_maximum": 0,
+      "type": {
+       "name": "Initiative",
+       "id": 24,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "50 Initiative"
+     },
+     {
+      "int_minimum": 30,
+      "int_maximum": 0,
+      "type": {
+       "name": "Force",
+       "id": 45,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "30 Force"
+     },
+     {
+      "int_minimum": 30,
+      "int_maximum": 0,
+      "type": {
+       "name": "Chance",
+       "id": 22,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "30 Chance"
+     },
+     {
+      "int_minimum": 30,
+      "int_maximum": 0,
+      "type": {
+       "name": "Agilité",
+       "id": 36,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "30 Agilité"
+     },
+     {
+      "int_minimum": 5,
+      "int_maximum": 0,
+      "type": {
+       "name": "Dommage Poussée",
+       "id": 62,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "5 Dommages Poussée"
+     }
+    ],
+    "3": [
+     {
+      "int_minimum": 100,
+      "int_maximum": 0,
+      "type": {
+       "name": "Initiative",
+       "id": 24,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "100 Initiative"
+     },
+     {
+      "int_minimum": 30,
+      "int_maximum": 0,
+      "type": {
+       "name": "Force",
+       "id": 45,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "30 Force"
+     },
+     {
+      "int_minimum": 30,
+      "int_maximum": 0,
+      "type": {
+       "name": "Chance",
+       "id": 22,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "30 Chance"
+     },
+     {
+      "int_minimum": 30,
+      "int_maximum": 0,
+      "type": {
+       "name": "Agilité",
+       "id": 36,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "30 Agilité"
+     },
+     {
+      "int_minimum": 10,
+      "int_maximum": 0,
+      "type": {
+       "name": "Dommage Poussée",
+       "id": 62,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "10 Dommages Poussée"
+     },
+     {
+      "int_minimum": 1,
+      "int_maximum": 0,
+      "type": {
+       "name": "PA",
+       "id": 12,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "1 PA"
+     }
+    ],
+    "4": [
+     {
+      "int_minimum": 150,
+      "int_maximum": 0,
+      "type": {
+       "name": "Initiative",
+       "id": 24,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "150 Initiative"
+     },
+     {
+      "int_minimum": 40,
+      "int_maximum": 0,
+      "type": {
+       "name": "Force",
+       "id": 45,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "40 Force"
+     },
+     {
+      "int_minimum": 40,
+      "int_maximum": 0,
+      "type": {
+       "name": "Chance",
+       "id": 22,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "40 Chance"
+     },
+     {
+      "int_minimum": 40,
+      "int_maximum": 0,
+      "type": {
+       "name": "Agilité",
+       "id": 36,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "40 Agilité"
+     },
+     {
+      "int_minimum": 15,
+      "int_maximum": 0,
+      "type": {
+       "name": "Dommage Poussée",
+       "id": 62,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "15 Dommages Poussée"
+     },
+     {
+      "int_minimum": 1,
+      "int_maximum": 0,
+      "type": {
+       "name": "PA",
+       "id": 12,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "1 PA"
+     }
+    ],
+    "5": [
+     {
+      "int_minimum": 200,
+      "int_maximum": 0,
+      "type": {
+       "name": "Initiative",
+       "id": 24,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "200 Initiative"
+     },
+     {
+      "int_minimum": 40,
+      "int_maximum": 0,
+      "type": {
+       "name": "Force",
+       "id": 45,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "40 Force"
+     },
+     {
+      "int_minimum": 40,
+      "int_maximum": 0,
+      "type": {
+       "name": "Chance",
+       "id": 22,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "40 Chance"
+     },
+     {
+      "int_minimum": 40,
+      "int_maximum": 0,
+      "type": {
+       "name": "Agilité",
+       "id": 36,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "40 Agilité"
+     },
+     {
+      "int_minimum": 20,
+      "int_maximum": 0,
+      "type": {
+       "name": "Dommage Poussée",
+       "id": 62,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "20 Dommages Poussée"
+     },
+     {
+      "int_minimum": 1,
+      "int_maximum": 0,
+      "type": {
+       "name": "PA",
+       "id": 12,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "1 PA"
+     },
+     {
+      "int_minimum": 1,
+      "int_maximum": 0,
+      "type": {
+       "name": "Portée",
+       "id": 31,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "1 Portée"
+     }
+    ],
+    "6": [
+     {
+      "int_minimum": 250,
+      "int_maximum": 0,
+      "type": {
+       "name": "Initiative",
+       "id": 24,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "250 Initiative"
+     },
+     {
+      "int_minimum": 50,
+      "int_maximum": 0,
+      "type": {
+       "name": "Force",
+       "id": 45,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "50 Force"
+     },
+     {
+      "int_minimum": 50,
+      "int_maximum": 0,
+      "type": {
+       "name": "Chance",
+       "id": 22,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "50 Chance"
+     },
+     {
+      "int_minimum": 50,
+      "int_maximum": 0,
+      "type": {
+       "name": "Agilité",
+       "id": 36,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "50 Agilité"
+     },
+     {
+      "int_minimum": 25,
+      "int_maximum": 0,
+      "type": {
+       "name": "Dommage Poussée",
+       "id": 62,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "25 Dommages Poussée"
+     },
+     {
+      "int_minimum": 1,
+      "int_maximum": 0,
+      "type": {
+       "name": "PA",
+       "id": 12,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "1 PA"
+     },
+     {
+      "int_minimum": 1,
+      "int_maximum": 0,
+      "type": {
+       "name": "Portée",
+       "id": 31,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "1 Portée"
+     }
+    ],
+    "7": [
+     {
+      "int_minimum": 300,
+      "int_maximum": 0,
+      "type": {
+       "name": "Initiative",
+       "id": 24,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "300 Initiative"
+     },
+     {
+      "int_minimum": 50,
+      "int_maximum": 0,
+      "type": {
+       "name": "Force",
+       "id": 45,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "50 Force"
+     },
+     {
+      "int_minimum": 50,
+      "int_maximum": 0,
+      "type": {
+       "name": "Chance",
+       "id": 22,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "50 Chance"
+     },
+     {
+      "int_minimum": 50,
+      "int_maximum": 0,
+      "type": {
+       "name": "Agilité",
+       "id": 36,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "50 Agilité"
+     },
+     {
+      "int_minimum": 30,
+      "int_maximum": 0,
+      "type": {
+       "name": "Dommage Poussée",
+       "id": 62,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "30 Dommages Poussée"
+     },
+     {
+      "int_minimum": 1,
+      "int_maximum": 0,
+      "type": {
+       "name": "PA",
+       "id": 12,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "1 PA"
+     },
+     {
+      "int_minimum": 1,
+      "int_maximum": 0,
+      "type": {
+       "name": "PM",
+       "id": 8,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "1 PM"
+     },
+     {
+      "int_minimum": 1,
+      "int_maximum": 0,
+      "type": {
+       "name": "Portée",
+       "id": 31,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "1 Portée"
+     }
+    ]
+   },
+   "equipment_ids": [
+    233,
+    2808,
+    8271,
+    8273,
+    8278,
+    8281,
+    8285
+   ]
+  },
+  {
+   "ankama_id": 81,
+   "name": "Panoplie Téméraire",
+   "items": 5,
+   "level": 150,
+   "contains_cosmetics": false,
+   "contains_cosmetics_only": false,
+   "effects": {
+    "1": null,
+    "2": [
+     {
+      "int_minimum": 20,
+      "int_maximum": 0,
+      "type": {
+       "name": "Agilité",
+       "id": 36,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "20 Agilité"
+     },
+     {
+      "int_minimum": 20,
+      "int_maximum": 0,
+      "type": {
+       "name": "Intelligence",
+       "id": 13,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "20 Intelligence"
+     },
+     {
+      "int_minimum": 10,
+      "int_maximum": 0,
+      "type": {
+       "name": "Prospection",
+       "id": 25,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "10 Prospection"
+     },
+     {
+      "int_minimum": 3,
+      "int_maximum": 0,
+      "type": {
+       "name": "Soin",
+       "id": 121,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "3 Soins"
+     },
+     {
+      "int_minimum": 3,
+      "int_maximum": 0,
+      "type": {
+       "name": "Dommage",
+       "id": 30,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "3 Dommages"
+     },
+     {
+      "int_minimum": 100,
+      "int_maximum": 0,
+      "type": {
+       "name": "Vitalité",
+       "id": 9,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "100 Vitalité"
+     },
+     {
+      "int_minimum": 20,
+      "int_maximum": 0,
+      "type": {
+       "name": "Sagesse",
+       "id": 10,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "20 Sagesse"
+     },
+     {
+      "int_minimum": 20,
+      "int_maximum": 0,
+      "type": {
+       "name": "Chance",
+       "id": 22,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "20 Chance"
+     },
+     {
+      "int_minimum": 20,
+      "int_maximum": 0,
+      "type": {
+       "name": "Force",
+       "id": 45,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "20 Force"
+     }
+    ],
+    "3": [
+     {
+      "int_minimum": 20,
+      "int_maximum": 0,
+      "type": {
+       "name": "Prospection",
+       "id": 25,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "20 Prospection"
+     },
+     {
+      "int_minimum": 7,
+      "int_maximum": 0,
+      "type": {
+       "name": "Soin",
+       "id": 121,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "7 Soins"
+     },
+     {
+      "int_minimum": 7,
+      "int_maximum": 0,
+      "type": {
+       "name": "Dommage",
+       "id": 30,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "7 Dommages"
+     },
+     {
+      "int_minimum": 200,
+      "int_maximum": 0,
+      "type": {
+       "name": "Vitalité",
+       "id": 9,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "200 Vitalité"
+     },
+     {
+      "int_minimum": 40,
+      "int_maximum": 0,
+      "type": {
+       "name": "Sagesse",
+       "id": 10,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "40 Sagesse"
+     },
+     {
+      "int_minimum": 40,
+      "int_maximum": 0,
+      "type": {
+       "name": "Chance",
+       "id": 22,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "40 Chance"
+     },
+     {
+      "int_minimum": 40,
+      "int_maximum": 0,
+      "type": {
+       "name": "Force",
+       "id": 45,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "40 Force"
+     },
+     {
+      "int_minimum": 40,
+      "int_maximum": 0,
+      "type": {
+       "name": "Intelligence",
+       "id": 13,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "40 Intelligence"
+     },
+     {
+      "int_minimum": 40,
+      "int_maximum": 0,
+      "type": {
+       "name": "Agilité",
+       "id": 36,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "40 Agilité"
+     }
+    ],
+    "4": [
+     {
+      "int_minimum": 5,
+      "int_maximum": 0,
+      "type": {
+       "name": "% Résistance Terre",
+       "id": 63,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "5% Résistance Terre"
+     },
+     {
+      "int_minimum": 5,
+      "int_maximum": 0,
+      "type": {
+       "name": "% Résistance Neutre",
+       "id": 34,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "5% Résistance Neutre"
+     },
+     {
+      "int_minimum": 5,
+      "int_maximum": 0,
+      "type": {
+       "name": "% Résistance Feu",
+       "id": 37,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "5% Résistance Feu"
+     },
+     {
+      "int_minimum": 5,
+      "int_maximum": 0,
+      "type": {
+       "name": "% Résistance Eau",
+       "id": 17,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "5% Résistance Eau"
+     },
+     {
+      "int_minimum": 5,
+      "int_maximum": 0,
+      "type": {
+       "name": "% Résistance Air",
+       "id": 16,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "5% Résistance Air"
+     },
+     {
+      "int_minimum": 30,
+      "int_maximum": 0,
+      "type": {
+       "name": "Prospection",
+       "id": 25,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "30 Prospection"
+     },
+     {
+      "int_minimum": 1,
+      "int_maximum": 0,
+      "type": {
+       "name": "Invocation",
+       "id": 28,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "1 Invocation"
+     },
+     {
+      "int_minimum": 12,
+      "int_maximum": 0,
+      "type": {
+       "name": "Soin",
+       "id": 121,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "12 Soins"
+     },
+     {
+      "int_minimum": 12,
+      "int_maximum": 0,
+      "type": {
+       "name": "Dommage",
+       "id": 30,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "12 Dommages"
+     },
+     {
+      "int_minimum": 500,
+      "int_maximum": 0,
+      "type": {
+       "name": "Vitalité",
+       "id": 9,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "500 Vitalité"
+     },
+     {
+      "int_minimum": 70,
+      "int_maximum": 0,
+      "type": {
+       "name": "Sagesse",
+       "id": 10,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "70 Sagesse"
+     },
+     {
+      "int_minimum": 70,
+      "int_maximum": 0,
+      "type": {
+       "name": "Chance",
+       "id": 22,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "70 Chance"
+     },
+     {
+      "int_minimum": 70,
+      "int_maximum": 0,
+      "type": {
+       "name": "Force",
+       "id": 45,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "70 Force"
+     },
+     {
+      "int_minimum": 70,
+      "int_maximum": 0,
+      "type": {
+       "name": "Intelligence",
+       "id": 13,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "70 Intelligence"
+     },
+     {
+      "int_minimum": 70,
+      "int_maximum": 0,
+      "type": {
+       "name": "Agilité",
+       "id": 36,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "70 Agilité"
+     }
+    ],
+    "5": [
+     {
+      "int_minimum": 10,
+      "int_maximum": 0,
+      "type": {
+       "name": "% Résistance Terre",
+       "id": 63,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "10% Résistance Terre"
+     },
+     {
+      "int_minimum": 10,
+      "int_maximum": 0,
+      "type": {
+       "name": "% Résistance Neutre",
+       "id": 34,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "10% Résistance Neutre"
+     },
+     {
+      "int_minimum": 10,
+      "int_maximum": 0,
+      "type": {
+       "name": "% Résistance Feu",
+       "id": 37,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "10% Résistance Feu"
+     },
+     {
+      "int_minimum": 10,
+      "int_maximum": 0,
+      "type": {
+       "name": "% Résistance Eau",
+       "id": 17,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "10% Résistance Eau"
+     },
+     {
+      "int_minimum": 10,
+      "int_maximum": 0,
+      "type": {
+       "name": "% Résistance Air",
+       "id": 16,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "10% Résistance Air"
+     },
+     {
+      "int_minimum": 40,
+      "int_maximum": 0,
+      "type": {
+       "name": "Prospection",
+       "id": 25,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "40 Prospection"
+     },
+     {
+      "int_minimum": 1,
+      "int_maximum": 0,
+      "type": {
+       "name": "Invocation",
+       "id": 28,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "1 Invocation"
+     },
+     {
+      "int_minimum": 1,
+      "int_maximum": 0,
+      "type": {
+       "name": "PA",
+       "id": 12,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "1 PA"
+     },
+     {
+      "int_minimum": 20,
+      "int_maximum": 0,
+      "type": {
+       "name": "Soin",
+       "id": 121,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "20 Soins"
+     },
+     {
+      "int_minimum": 20,
+      "int_maximum": 0,
+      "type": {
+       "name": "Dommage",
+       "id": 30,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "20 Dommages"
+     },
+     {
+      "int_minimum": 800,
+      "int_maximum": 0,
+      "type": {
+       "name": "Vitalité",
+       "id": 9,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "800 Vitalité"
+     },
+     {
+      "int_minimum": 100,
+      "int_maximum": 0,
+      "type": {
+       "name": "Sagesse",
+       "id": 10,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "100 Sagesse"
+     },
+     {
+      "int_minimum": 100,
+      "int_maximum": 0,
+      "type": {
+       "name": "Chance",
+       "id": 22,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "100 Chance"
+     },
+     {
+      "int_minimum": 100,
+      "int_maximum": 0,
+      "type": {
+       "name": "Force",
+       "id": 45,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "100 Force"
+     },
+     {
+      "int_minimum": 100,
+      "int_maximum": 0,
+      "type": {
+       "name": "Intelligence",
+       "id": 13,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "100 Intelligence"
+     },
+     {
+      "int_minimum": 100,
+      "int_maximum": 0,
+      "type": {
+       "name": "Agilité",
+       "id": 36,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "100 Agilité"
+     }
+    ]
+   },
+   "equipment_ids": [
+    8619,
+    8639,
+    8651,
+    8663,
+    8717
+   ]
+  },
+  {
+   "ankama_id": 993,
+   "name": "Panoplie Fulgurante",
+   "items": 2,
+   "level": 55,
+   "contains_cosmetics": false,
+   "contains_cosmetics_only": false,
+   "effects": {
+    "1": null,
+    "2": [
+     {
+      "int_minimum": 7,
+      "int_maximum": 0,
+      "type": {
+       "name": "Dommage",
+       "id": 30,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "7 Dommages"
+     },
+     {
+      "int_minimum": 5,
+      "int_maximum": 0,
+      "type": {
+       "name": "Esquive PA",
+       "id": 75,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "5 Esquive PA"
+     },
+     {
+      "int_minimum": 5,
+      "int_maximum": 0,
+      "type": {
+       "name": "Esquive PM",
+       "id": 39,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "5 Esquive PM"
+     },
+     {
+      "int_minimum": 5,
+      "int_maximum": 0,
+      "type": {
+       "name": "% Critique",
+       "id": 29,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "5% Critique"
+     }
+    ]
+   },
+   "equipment_ids": [
+    967,
+    968
+   ]
+  },
+  {
+   "ankama_id": 6,
+   "name": "Panoplie Gelax",
+   "items": 6,
+   "level": 60,
+   "contains_cosmetics": false,
+   "contains_cosmetics_only": false,
+   "effects": {
+    "1": null,
+    "2": [
+     {
+      "int_minimum": 20,
+      "int_maximum": 0,
+      "type": {
+       "name": "Intelligence",
+       "id": 13,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "20 Intelligence"
+     }
+    ],
+    "3": [
+     {
+      "int_minimum": 30,
+      "int_maximum": 0,
+      "type": {
+       "name": "Intelligence",
+       "id": 13,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "30 Intelligence"
+     }
+    ],
+    "4": [
+     {
+      "int_minimum": 30,
+      "int_maximum": 0,
+      "type": {
+       "name": "Intelligence",
+       "id": 13,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "30 Intelligence"
+     },
+     {
+      "int_minimum": 10,
+      "int_maximum": 0,
+      "type": {
+       "name": "Prospection",
+       "id": 25,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "10 Prospection"
+     }
+    ],
+    "5": [
+     {
+      "int_minimum": 40,
+      "int_maximum": 0,
+      "type": {
+       "name": "Intelligence",
+       "id": 13,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "40 Intelligence"
+     },
+     {
+      "int_minimum": 20,
+      "int_maximum": 0,
+      "type": {
+       "name": "Prospection",
+       "id": 25,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "20 Prospection"
+     }
+    ],
+    "6": [
+     {
+      "int_minimum": 20,
+      "int_maximum": 0,
+      "type": {
+       "name": "Prospection",
+       "id": 25,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "20 Prospection"
+     },
+     {
+      "int_minimum": 40,
+      "int_maximum": 0,
+      "type": {
+       "name": "Intelligence",
+       "id": 13,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "40 Intelligence"
+     },
+     {
+      "int_minimum": 1,
+      "int_maximum": 0,
+      "type": {
+       "name": "PA",
+       "id": 12,
+       "is_meta": false,
+       "is_active": false
+      },
+      "ignore_int_min": false,
+      "ignore_int_max": true,
+      "formatted": "1 PA"
+     }
+    ]
+   },
+   "equipment_ids": [
+    2446,
+    2447,
+    2469,
+    2470,
+    2471,
+    2472
+   ]
+  }
+ ]
+}

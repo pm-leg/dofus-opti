@@ -1,0 +1,6 @@
+# Fins de ligne normalisées dans le dépôt, natives à la copie de travail.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.db  binary

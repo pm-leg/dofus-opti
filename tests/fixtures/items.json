@@ -1,0 +1,820 @@
+{
+ "items": [
+  {
+   "ankama_id": 967,
+   "name": "Cape Fulgurante",
+   "type": {
+    "name": "Cape",
+    "id": 43
+   },
+   "level": 55,
+   "image_urls": {
+    "icon": "https://api.dofusdu.de/dofus3/v1/img/item/17078-64.png",
+    "sd": "https://api.dofusdu.de/dofus3/v1/img/item/17078-128.png"
+   },
+   "description": "Cette magnifique cape augmente les points d'action de son porteur. Elle augmente également sa vitalité et sa sagesse.",
+   "recipe": [
+    {
+     "item_ankama_id": 8483,
+     "item_subtype": "resources",
+     "quantity": 7
+    },
+    {
+     "item_ankama_id": 8385,
+     "item_subtype": "resources",
+     "quantity": 4
+    },
+    {
+     "item_ankama_id": 2540,
+     "item_subtype": "resources",
+     "quantity": 1
+    },
+    {
+     "item_ankama_id": 13713,
+     "item_subtype": "resources",
+     "quantity": 2
+    }
+   ],
+   "conditions": {
+    "condition": {
+     "operator": "<",
+     "int_value": 10,
+     "element": {
+      "name": "PA",
+      "id": 12
+     }
+    },
+    "is_operand": true
+   },
+   "effects": [
+    {
+     "int_minimum": 21,
+     "int_maximum": 25,
+     "type": {
+      "name": "Vitalité",
+      "id": 9,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "21 à 25 Vitalité"
+    },
+    {
+     "int_minimum": 11,
+     "int_maximum": 15,
+     "type": {
+      "name": "Sagesse",
+      "id": 10,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "11 à 15 Sagesse"
+    },
+    {
+     "int_minimum": 1,
+     "int_maximum": 0,
+     "type": {
+      "name": "PA",
+      "id": 12,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": true,
+     "formatted": "1 PA"
+    }
+   ],
+   "is_weapon": false,
+   "pods": 10,
+   "parent_set": {
+    "id": 993,
+    "name": "Panoplie Fulgurante"
+   }
+  },
+  {
+   "ankama_id": 180,
+   "name": "La Baguette des Limbes",
+   "type": {
+    "name": "Baguette",
+    "id": 65
+   },
+   "level": 105,
+   "image_urls": {
+    "icon": "https://api.dofusdu.de/dofus3/v1/img/item/3007-64.png",
+    "sd": "https://api.dofusdu.de/dofus3/v1/img/item/3007-128.png"
+   },
+   "description": "Cette baguette provient des Limbes de Syrastass. La légende raconte qu'elle permet de faire fleurir des champs entiers de pâquerettes à la simple demande de son porteur.",
+   "recipe": [
+    {
+     "item_ankama_id": 14921,
+     "item_subtype": "resources",
+     "quantity": 2
+    },
+    {
+     "item_ankama_id": 315,
+     "item_subtype": "resources",
+     "quantity": 3
+    },
+    {
+     "item_ankama_id": 8384,
+     "item_subtype": "resources",
+     "quantity": 1
+    },
+    {
+     "item_ankama_id": 14512,
+     "item_subtype": "resources",
+     "quantity": 17
+    },
+    {
+     "item_ankama_id": 2805,
+     "item_subtype": "resources",
+     "quantity": 2
+    },
+    {
+     "item_ankama_id": 2620,
+     "item_subtype": "resources",
+     "quantity": 6
+    },
+    {
+     "item_ankama_id": 14517,
+     "item_subtype": "resources",
+     "quantity": 1
+    }
+   ],
+   "conditions": {
+    "is_operand": false,
+    "relation": "and",
+    "children": [
+     {
+      "is_operand": false,
+      "relation": "and",
+      "children": [
+       {
+        "condition": {
+         "operator": "<",
+         "int_value": 12,
+         "element": {
+          "name": "PA",
+          "id": 12
+         }
+        },
+        "is_operand": true
+       },
+       {
+        "condition": {
+         "operator": "<",
+         "int_value": 6,
+         "element": {
+          "name": "PM",
+          "id": 8
+         }
+        },
+        "is_operand": true
+       }
+      ]
+     },
+     {
+      "condition": {
+       "operator": ">",
+       "int_value": 99,
+       "element": {
+        "name": "Sagesse",
+        "id": 10
+       }
+      },
+      "is_operand": true
+     }
+    ]
+   },
+   "effects": [
+    {
+     "int_minimum": 1,
+     "int_maximum": 0,
+     "type": {
+      "name": "PA",
+      "id": 12,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": true,
+     "formatted": "1 PA"
+    },
+    {
+     "int_minimum": 1,
+     "int_maximum": 0,
+     "type": {
+      "name": "PM",
+      "id": 8,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": true,
+     "formatted": "1 PM"
+    },
+    {
+     "int_minimum": 16,
+     "int_maximum": 20,
+     "type": {
+      "name": "dommages Neutre",
+      "id": 195,
+      "is_meta": false,
+      "is_active": true
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "16 à 20 dommages Neutre"
+    },
+    {
+     "int_minimum": 1,
+     "int_maximum": 0,
+     "type": {
+      "name": "Portée",
+      "id": 31,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": true,
+     "formatted": "1 Portée"
+    },
+    {
+     "int_minimum": -40,
+     "int_maximum": -11,
+     "type": {
+      "name": "Force",
+      "id": 45,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "-40 à -11 Force"
+    },
+    {
+     "int_minimum": 21,
+     "int_maximum": 40,
+     "type": {
+      "name": "Sagesse",
+      "id": 10,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "21 à 40 Sagesse"
+    },
+    {
+     "int_minimum": 21,
+     "int_maximum": 40,
+     "type": {
+      "name": "Intelligence",
+      "id": 13,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "21 à 40 Intelligence"
+    }
+   ],
+   "is_weapon": true,
+   "pods": 10,
+   "critical_hit_probability": 25,
+   "critical_hit_bonus": 10,
+   "max_cast_per_turn": 1,
+   "ap_cost": 4,
+   "range": {
+    "min": 2,
+    "max": 4
+   }
+  },
+  {
+   "ankama_id": 233,
+   "name": "Kaiser",
+   "type": {
+    "name": "Marteau",
+    "id": 42
+   },
+   "level": 104,
+   "image_urls": {
+    "icon": "https://api.dofusdu.de/dofus3/v1/img/item/7010-64.png",
+    "sd": "https://api.dofusdu.de/dofus3/v1/img/item/7010-128.png"
+   },
+   "description": "Kaiser est le nom d'un Dragon Cochon qui jadis dévasta le village de Bounkaïda. Lorsque la milice eut enfin raison du monstre, les forgerons créèrent de nombreuses armes à partir des restes de la bête. Ce marteau en fait partie.",
+   "recipe": [
+    {
+     "item_ankama_id": 2645,
+     "item_subtype": "resources",
+     "quantity": 3
+    },
+    {
+     "item_ankama_id": 8392,
+     "item_subtype": "resources",
+     "quantity": 17
+    },
+    {
+     "item_ankama_id": 8391,
+     "item_subtype": "resources",
+     "quantity": 18
+    },
+    {
+     "item_ankama_id": 750,
+     "item_subtype": "resources",
+     "quantity": 2
+    },
+    {
+     "item_ankama_id": 13366,
+     "item_subtype": "resources",
+     "quantity": 1
+    },
+    {
+     "item_ankama_id": 16181,
+     "item_subtype": "resources",
+     "quantity": 1
+    },
+    {
+     "item_ankama_id": 479,
+     "item_subtype": "resources",
+     "quantity": 6
+    }
+   ],
+   "effects": [
+    {
+     "int_minimum": 101,
+     "int_maximum": 150,
+     "type": {
+      "name": "Vitalité",
+      "id": 9,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "101 à 150 Vitalité"
+    },
+    {
+     "int_minimum": 16,
+     "int_maximum": 20,
+     "type": {
+      "name": "Force",
+      "id": 45,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "16 à 20 Force"
+    },
+    {
+     "int_minimum": 16,
+     "int_maximum": 20,
+     "type": {
+      "name": "Puissance",
+      "id": 32,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "16 à 20 Puissance"
+    },
+    {
+     "int_minimum": 16,
+     "int_maximum": 20,
+     "type": {
+      "name": "Sagesse",
+      "id": 10,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "16 à 20 Sagesse"
+    },
+    {
+     "int_minimum": 2,
+     "int_maximum": 3,
+     "type": {
+      "name": "% Résistance Terre",
+      "id": 63,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "2 à 3% Résistance Terre"
+    },
+    {
+     "int_minimum": 4,
+     "int_maximum": 6,
+     "type": {
+      "name": "Dommage",
+      "id": 30,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "4 à 6 Dommages"
+    },
+    {
+     "int_minimum": 5,
+     "int_maximum": 8,
+     "type": {
+      "name": "Dommage Critiques",
+      "id": 38,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "5 à 8 Dommages Critiques"
+    },
+    {
+     "int_minimum": 2,
+     "int_maximum": 3,
+     "type": {
+      "name": "% Critique",
+      "id": 29,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "2 à 3% Critique"
+    },
+    {
+     "int_minimum": 9,
+     "int_maximum": 11,
+     "type": {
+      "name": "dommages Neutre",
+      "id": 195,
+      "is_meta": false,
+      "is_active": true
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "9 à 11 dommages Neutre"
+    },
+    {
+     "int_minimum": 9,
+     "int_maximum": 11,
+     "type": {
+      "name": "dommages Eau",
+      "id": 214,
+      "is_meta": false,
+      "is_active": true
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "9 à 11 dommages Eau"
+    },
+    {
+     "int_minimum": 9,
+     "int_maximum": 11,
+     "type": {
+      "name": "dommages Air",
+      "id": 189,
+      "is_meta": false,
+      "is_active": true
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "9 à 11 dommages Air"
+    },
+    {
+     "int_minimum": -1,
+     "int_maximum": 0,
+     "type": {
+      "name": "PA",
+      "id": 179,
+      "is_meta": false,
+      "is_active": true
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": true,
+     "formatted": "-1 PA"
+    }
+   ],
+   "is_weapon": true,
+   "pods": 10,
+   "parent_set": {
+    "id": 58,
+    "name": "Panoplie du Dragon Cochon"
+   },
+   "critical_hit_probability": 30,
+   "critical_hit_bonus": 6,
+   "max_cast_per_turn": 1,
+   "ap_cost": 4,
+   "range": {
+    "min": 1,
+    "max": 1
+   }
+  },
+  {
+   "ankama_id": 44,
+   "name": "Épée de Boisaille",
+   "type": {
+    "name": "Épée",
+    "id": 80
+   },
+   "level": 7,
+   "image_urls": {
+    "icon": "https://api.dofusdu.de/dofus3/v1/img/item/6007-64.png",
+    "sd": "https://api.dofusdu.de/dofus3/v1/img/item/6007-128.png"
+   },
+   "description": "Épée de simple facture, elle ne fera pas de votre héros une légende.",
+   "recipe": [
+    {
+     "item_ankama_id": 16512,
+     "item_subtype": "resources",
+     "quantity": 3
+    },
+    {
+     "item_ankama_id": 303,
+     "item_subtype": "resources",
+     "quantity": 3
+    }
+   ],
+   "effects": [
+    {
+     "int_minimum": 8,
+     "int_maximum": 10,
+     "type": {
+      "name": "dommages Neutre",
+      "id": 195,
+      "is_meta": false,
+      "is_active": true
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "8 à 10 dommages Neutre"
+    },
+    {
+     "int_minimum": 7,
+     "int_maximum": 10,
+     "type": {
+      "name": "Force",
+      "id": 45,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": false,
+     "formatted": "7 à 10 Force"
+    },
+    {
+     "int_minimum": 1,
+     "int_maximum": 0,
+     "type": {
+      "name": "Dommage Terre",
+      "id": 48,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": true,
+     "formatted": "1 Dommage Terre"
+    }
+   ],
+   "is_weapon": true,
+   "pods": 1,
+   "critical_hit_probability": 30,
+   "critical_hit_bonus": 5,
+   "max_cast_per_turn": 1,
+   "ap_cost": 3,
+   "range": {
+    "min": 1,
+    "max": 1
+   }
+  },
+  {
+   "ankama_id": 8619,
+   "name": "Casque Keutumedi",
+   "type": {
+    "name": "Chapeau",
+    "id": 27
+   },
+   "level": 40,
+   "image_urls": {
+    "icon": "https://api.dofusdu.de/dofus3/v1/img/item/16175-64.png",
+    "sd": "https://api.dofusdu.de/dofus3/v1/img/item/16175-128.png"
+   },
+   "description": "Grâce à cette coiffe guerrière, les Iops ont vraiment fière allure. Le seul problème est qu'elle leur cache une partie de leur champ de vision et les empêche d'entendre correctement les paroles de leurs adversaires. Le casque Keutumedi est vraiment fait pour les gens qui aiment frapper avant de réfléchir.",
+   "recipe": [
+    {
+     "item_ankama_id": 8731,
+     "item_subtype": "resources",
+     "quantity": 1
+    },
+    {
+     "item_ankama_id": 8745,
+     "item_subtype": "resources",
+     "quantity": 2
+    },
+    {
+     "item_ankama_id": 1457,
+     "item_subtype": "resources",
+     "quantity": 10
+    },
+    {
+     "item_ankama_id": 8744,
+     "item_subtype": "resources",
+     "quantity": 10
+    },
+    {
+     "item_ankama_id": 8749,
+     "item_subtype": "resources",
+     "quantity": 10
+    }
+   ],
+   "effects": [
+    {
+     "int_minimum": 13106,
+     "int_maximum": 0,
+     "type": {
+      "name": ": ligne de vue désactivée",
+      "id": 205,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": true,
+     "formatted": "Pression : ligne de vue désactivée"
+    },
+    {
+     "int_minimum": 13139,
+     "int_maximum": 0,
+     "type": {
+      "name": ": + Portée maximale",
+      "id": 208,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": true,
+     "formatted": "Fracture : +2 Portée maximale"
+    },
+    {
+     "int_minimum": 13119,
+     "int_maximum": 0,
+     "type": {
+      "name": ": + Portée maximale",
+      "id": 208,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": true,
+     "formatted": "Épée Destructrice : +3 Portée maximale"
+    },
+    {
+     "int_minimum": 14818,
+     "int_maximum": 0,
+     "type": {
+      "name": ": + Portée maximale",
+      "id": 208,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": true,
+     "formatted": "Fustigation : +3 Portée maximale"
+    },
+    {
+     "int_minimum": 13108,
+     "int_maximum": 0,
+     "type": {
+      "name": ": ligne de vue désactivée",
+      "id": 205,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": true,
+     "formatted": "Intimidation : ligne de vue désactivée"
+    },
+    {
+     "int_minimum": 13148,
+     "int_maximum": 0,
+     "type": {
+      "name": ": - de relance",
+      "id": 227,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": true,
+     "formatted": "Conquête : -1 de relance"
+    },
+    {
+     "int_minimum": 13107,
+     "int_maximum": 0,
+     "type": {
+      "name": ": + Portée maximale",
+      "id": 208,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": true,
+     "formatted": "Bond : +1 Portée maximale"
+    },
+    {
+     "int_minimum": 13143,
+     "int_maximum": 0,
+     "type": {
+      "name": ": - PA",
+      "id": 207,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": true,
+     "formatted": "Agitation : -1 PA"
+    }
+   ],
+   "is_weapon": false,
+   "pods": 10,
+   "parent_set": {
+    "id": 81,
+    "name": "Panoplie Téméraire"
+   }
+  },
+  {
+   "ankama_id": 694,
+   "name": "Dofus Pourpre",
+   "type": {
+    "name": "Dofus",
+    "id": 177
+   },
+   "level": 110,
+   "image_urls": {
+    "icon": "https://api.dofusdu.de/dofus3/v1/img/item/23001-64.png",
+    "sd": "https://api.dofusdu.de/dofus3/v1/img/item/23001-128.png"
+   },
+   "description": "C'est le Dragon du Feu Ignemikhal qui créa le Dofus Pourpre, un Œuf dont le moins qu'on puisse dire, c'est qu'il sent le soufre - mais il sent bien d'autres choses encore...",
+   "effects": [
+    {
+     "int_minimum": 80,
+     "int_maximum": 0,
+     "type": {
+      "name": "Puissance",
+      "id": 32,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": true,
+     "formatted": "80 Puissance"
+    },
+    {
+     "int_minimum": 0,
+     "int_maximum": 0,
+     "type": {
+      "name": "Échangeable :",
+      "id": 0,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": true,
+     "ignore_int_max": true,
+     "formatted": "Échangeable : 0"
+    },
+    {
+     "int_minimum": 0,
+     "int_maximum": 0,
+     "type": {
+      "name": "-special spell-",
+      "id": 163,
+      "is_meta": true,
+      "is_active": false
+     },
+     "ignore_int_min": true,
+     "ignore_int_max": true,
+     "formatted": "Pourpre Profond :\n• Lorsque le porteur est attaqué, il gagne 1% de dommages finaux pendant 2 tours (cumulable 10 fois)."
+    },
+    {
+     "int_minimum": 186,
+     "int_maximum": 0,
+     "type": {
+      "name": "Attitude",
+      "id": 98,
+      "is_meta": false,
+      "is_active": false
+     },
+     "ignore_int_min": false,
+     "ignore_int_max": true,
+     "formatted": "Attitude 0"
+    }
+   ],
+   "is_weapon": false,
+   "pods": 10
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+[project]
+name = "dofus-opti"
+version = "0.1.0"
+description = "Optimiseur de stuff Dofus sous contraintes"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    # Le solveur de contraintes. Seule dépendance du cœur : l'ingestion et le
+    # moteur de dégâts n'utilisent que la bibliothèque standard.
+    "ortools>=9.10",
+]
+
+[project.optional-dependencies]
+web = ["fastapi>=0.110", "uvicorn[standard]>=0.29"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+dofus-opti-ingest = "dofus_opti.ingest.build:main"
+dofus-opti = "dofus_opti.optimize_cli:main"
+dofus-opti-explore = "dofus_opti.explore:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"dofus_opti.web" = ["static/*.html"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = ["slow: tests longs (solveur complet)"]

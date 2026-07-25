@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dofus-opti</title>
+<style>
+  :root{
+    --bg:#191512;--panel:#221d18;--panel2:#2a241e;--line:#3a322a;
+    --text:#e8e0d4;--dim:#9a8f7f;--accent:#e8a33d;--accent2:#7fb069;--err:#d9634c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font:14px/1.5 system-ui,sans-serif;padding:24px}
+  .wrap{max-width:1060px;margin:0 auto}
+  h1{font-size:20px;margin-bottom:2px}
+  h1 span{color:var(--accent)}
+  .sub{color:var(--dim);font-size:12px;margin-bottom:20px}
+  fieldset{border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:14px;background:var(--panel)}
+  legend{padding:0 8px;color:var(--accent);font-weight:600;font-size:13px}
+  label{font-size:12px;color:var(--dim);display:block;margin-bottom:3px}
+  input,select{background:var(--panel2);border:1px solid var(--line);border-radius:5px;
+    color:var(--text);padding:6px 8px;font-size:13px}
+  input[type=number]{width:86px}
+  input:focus,select:focus{outline:1px solid var(--accent)}
+  .row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end}
+  .row>div{min-width:0}
+  .chk{display:inline-flex;align-items:center;gap:5px;margin:2px 10px 2px 0;font-size:13px;
+    color:var(--text);cursor:pointer;user-select:none}
+  .chk input{width:auto}
+  details{margin-top:10px}
+  summary{cursor:pointer;color:var(--dim);font-size:12px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:2px;margin-top:8px;
+    max-height:180px;overflow-y:auto;padding:6px;background:var(--panel2);border-radius:6px}
+  button{background:var(--accent);color:#1a1510;border:0;border-radius:6px;padding:10px 22px;
+    font-size:14px;font-weight:700;cursor:pointer}
+  button:disabled{opacity:.45;cursor:default}
+  button.ghost{background:var(--panel2);color:var(--text);border:1px solid var(--line);font-weight:400}
+  #status{margin:14px 0;padding:12px 16px;border-radius:8px;background:var(--panel);
+    border:1px solid var(--line);display:none}
+  #status.err{border-color:var(--err);color:var(--err)}
+  .spin{display:inline-block;width:12px;height:12px;border:2px solid var(--dim);
+    border-top-color:var(--accent);border-radius:50%;animation:r 1s linear infinite;margin-right:8px;vertical-align:-2px}
+  @keyframes r{to{transform:rotate(360deg)}}
+  #result{display:none}
+  .dmg{font-size:30px;font-weight:800;color:var(--accent2)}
+  .dmg small{font-size:13px;color:var(--dim);font-weight:400;margin-left:10px}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
+  @media(max-width:800px){.cols{grid-template-columns:1fr}}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  td{padding:4px 8px;border-bottom:1px solid var(--line)}
+  td.slot{color:var(--dim);width:88px;text-transform:capitalize}
+  td.set{color:var(--accent);font-size:11px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .chip{background:var(--panel2);border:1px solid var(--line);border-radius:20px;
+    padding:3px 11px;font-size:12px}
+  .chip b{color:var(--accent)}
+  .note{color:var(--dim);font-size:12px;margin-top:4px}
+  .warn{color:var(--err);font-size:12px;margin-top:4px}
+  #publink{margin-left:12px;color:var(--accent2);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>dofus-<span>opti</span></h1>
+  <div class="sub">optimiseur de stuff sous contraintes — version du jeu <span id="gv">…</span></div>
+
+  <fieldset>
+    <legend>Personnage</legend>
+    <div class="row">
+      <div><label>Classe</label><select id="breed"></select></div>
+      <div><label>Niveau</label><input type="number" id="level" value="200" min="1" max="200"></div>
+      <div><label>Éléments joués</label><span id="elements"></span></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <div>
+        <label>Points de niveau — <span id="budget"></span></label>
+        <div id="investrows" style="display:grid;grid-template-columns:repeat(3,auto);gap:4px 16px"></div>
+      </div>
+      <div><label>Parchemins</label><input type="number" id="scrolls" value="100" min="0" max="100"></div>
+      <div><label>Exos disponibles</label><span id="exos"></span></div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Items imposés</legend>
+    <div class="note">Ces items seront présents dans le build, quoi qu'il en coûte.</div>
+    <div class="row" style="margin-top:8px">
+      <div><input id="itemsearch" list="itemlist" size="34" placeholder="chercher un item…"
+             onchange="addForcedFromInput()"><datalist id="itemlist"></datalist></div>
+      <div><span id="quickforce"></span></div>
+    </div>
+    <div class="chips" id="forcedchips" style="margin-top:8px"></div>
+    <details><summary>Items forgemagés (avancé)</summary>
+      <label style="margin-top:6px">Séparés par « ; », format « Nom:stat=+1,stat=valeur » — le préfixe + s'ajoute au jet du catalogue</label>
+      <input id="customitems" size="60" placeholder="ex. Gelano:pm=+1 ; Croclier:critique_pct=+5">
+    </details>
+  </fieldset>
+
+  <fieldset>
+    <legend>Contraintes</legend>
+    <div class="row">
+      <div><label>PA (exact)</label><input type="number" id="c-pa" placeholder="—"></div>
+      <div><label>PM (exact)</label><input type="number" id="c-pm" placeholder="—"></div>
+      <div><label>PO minimum</label><input type="number" id="c-po" placeholder="—"></div>
+      <div><label>PV minimum</label><input type="number" id="c-hp" placeholder="—"></div>
+      <div><label>Cible (monstre)</label><input id="target" list="monsterlist" placeholder="aucune"><datalist id="monsterlist"></datalist></div>
+    </div>
+    <details><summary>Contraintes avancées (toute caractéristique)</summary>
+      <div id="advanced"></div>
+      <button type="button" class="ghost" style="margin-top:6px;padding:4px 12px" onclick="addBound()">+ contrainte</button>
+    </details>
+  </fieldset>
+
+  <fieldset>
+    <legend>Options</legend>
+    <div class="row">
+      <div><label>Coups critiques</label>
+        <select id="critpol"><option value="expected">espérance (défaut)</option>
+        <option value="never">jamais (no crit)</option><option value="always">toujours</option></select></div>
+      <div><label>Jets des items</label>
+        <select id="roll"><option value="max">parfaits</option><option value="avg">moyens</option><option value="min">minimaux</option></select></div>
+      <div><label>Sorts à charges</label>
+        <select id="charges"><option value="max">charge max (défaut)</option><option value="none">base nue</option></select></div>
+      <div><label>Temps de calcul (s)</label><input type="number" id="tl" value="45" min="5" max="300"></div>
+    </div>
+    <div style="margin-top:8px">
+      <label class="chk"><input type="checkbox" id="mount"> autoriser la monture (absente du lien DofusDB)</label>
+      <label class="chk"><input type="checkbox" id="prysma"> autoriser les prysmaradites (contreparties non modélisées)</label>
+    </div>
+    <details><summary>Restreindre à certains sorts (tous par défaut)</summary>
+      <div class="grid" id="spelllist"></div>
+    </details>
+  </fieldset>
+
+  <fieldset>
+    <legend>Dofus possédés</legend>
+    <label class="chk"><input type="radio" name="dfmode" value="all" checked onchange="toggleDofus()"> j'ai accès à tous les Dofus</label>
+    <label class="chk"><input type="radio" name="dfmode" value="mine" onchange="toggleDofus()"> seulement ceux que je coche</label>
+    <span id="dfcount" class="note"></span>
+    <div id="dofuszone" style="display:none">
+      <div style="margin:6px 0">
+        <button type="button" class="ghost" style="padding:2px 10px;font-size:11px" onclick="setAllDofus(true)">tout cocher</button>
+        <button type="button" class="ghost" style="padding:2px 10px;font-size:11px" onclick="setAllDofus(false)">tout décocher</button>
+        <span class="note">votre sélection est mémorisée dans ce navigateur</span>
+      </div>
+      <div class="grid" id="dofuslist"></div>
+    </div>
+  </fieldset>
+
+  <div id="bannedzone" style="margin-bottom:10px;display:none">
+    <label>Items exclus (cliquer pour réintégrer)</label>
+    <div class="chips" id="bannedchips"></div>
+  </div>
+
+  <div class="row">
+    <div><label>Nom du build</label><input id="bname" size="42" placeholder="généré automatiquement"></div>
+    <div><button id="go" onclick="submitBuild()">Optimiser</button></div>
+  </div>
+
+  <div id="status"></div>
+
+  <div id="result">
+    <fieldset>
+      <legend>Résultat</legend>
+      <div class="dmg"><span id="r-dmg"></span> dégâts / tour
+        <small id="r-status"></small>
+        <button class="ghost" style="float:right" id="pub" onclick="publish()">Publier sur DofusDB (public)</button>
+        <a id="publink" target="_blank"></a>
+      </div>
+      <div class="note" id="r-rot"></div>
+      <div class="cols">
+        <div><table id="r-items"></table></div>
+        <div>
+          <div class="chips" id="r-totals"></div>
+          <div id="r-sets" style="margin-top:12px"></div>
+          <div id="r-alloc" class="note"></div>
+          <div id="r-pool" class="note"></div>
+          <div id="r-warn"></div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>
+
+<script>
+let META=null, JOB=null, TIMER=null;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+async function boot(){
+  META=await (await fetch('/api/meta')).json();
+  $('gv').textContent=META.game_version;
+  $('breed').innerHTML=META.breeds.map(b=>`<option>${esc(b)}</option>`).join('');
+  $('elements').innerHTML=META.elements.map(e=>
+    `<label class="chk"><input type="checkbox" name="el" value="${e}"> ${e}</label>`).join('');
+  buildInvestRows();
+  $('level').addEventListener('input',updateBudget);
+  $('exos').innerHTML=META.exos.map(s=>
+    `<label class="chk"><input type="checkbox" name="exo" value="${s}"> ${s.toUpperCase()}</label>`).join('');
+  $('dofuslist').innerHTML=META.dofus.map(d=>
+    `<label class="chk"><input type="checkbox" name="df" value="${esc(d.name)}"> ${esc(d.name)} <small style="color:var(--dim)">(${d.level})</small></label>`).join('');
+  restoreDofus();
+  document.querySelectorAll('input[name=df]').forEach(b=>b.addEventListener('change',saveDofus));
+  $('breed').onchange=loadSpells; $('level').onchange=loadSpells;
+  restoreForced();
+  loadSpells();
+}
+async function loadSpells(){
+  const r=await fetch(`/api/spells?breed=${encodeURIComponent($('breed').value)}&level=${$('level').value}`);
+  if(!r.ok){$('spelllist').innerHTML='';return}
+  const spells=await r.json();
+  $('spelllist').innerHTML=spells.map(s=>
+    `<label class="chk" title="${esc(s.damage)}"><input type="checkbox" name="sp" value="${esc(s.name)}"> ${esc(s.name)} <small style="color:var(--dim)">(${s.ap} PA)</small></label>`).join('');
+}
+function dofusMode(){return document.querySelector('input[name=dfmode]:checked').value}
+function toggleDofus(){
+  $('dofuszone').style.display=dofusMode()==='mine'?'block':'none';
+  updateDofusCount(); saveDofus();
+}
+function updateDofusCount(){
+  $('dfcount').textContent=dofusMode()==='mine'
+    ?`${checked('df').length} Dofus coché(s) — les trophées restent tous disponibles`:'';
+}
+function setAllDofus(on){
+  document.querySelectorAll('input[name=df]').forEach(b=>b.checked=on);
+  updateDofusCount(); saveDofus();
+}
+function saveDofus(){
+  try{
+    localStorage.setItem('dofus-opti.dfmode',dofusMode());
+    localStorage.setItem('dofus-opti.dfowned',JSON.stringify(checked('df')));
+  }catch(e){}
+  updateDofusCount();
+}
+function restoreDofus(){
+  try{
+    const mode=localStorage.getItem('dofus-opti.dfmode');
+    const owned=JSON.parse(localStorage.getItem('dofus-opti.dfowned')||'[]');
+    document.querySelectorAll('input[name=df]').forEach(b=>b.checked=owned.includes(b.value));
+    if(mode==='mine'){
+      document.querySelector('input[name=dfmode][value=mine]').checked=true;
+      $('dofuszone').style.display='block';
+    }
+  }catch(e){}
+  updateDofusCount();
+}
+
+// Barèmes de coût des points — identiques pour les 19 classes (vérifié dans les
+// données) ; le serveur revalide avec les barèmes réels de toute façon.
+const TIERS={force:[[0,1],[100,2],[200,3],[300,4]],intelligence:[[0,1],[100,2],[200,3],[300,4]],
+  chance:[[0,1],[100,2],[200,3],[300,4]],agilite:[[0,1],[100,2],[200,3],[300,4]],
+  vitalite:[[0,1]],sagesse:[[0,3]]};
+function unitCost(v,t){let c=1;for(const[s,k]of t){if(v>=s)c=k;else break}return c}
+function costOf(stat,val){let s=0;for(let i=0;i<val;i++)s+=unitCost(i,TIERS[stat]);return s}
+function budget(){return Math.max(0,(+$('level').value-1))*5}
+function buildInvestRows(){
+  $('investrows').innerHTML=Object.keys(TIERS).map(s=>
+    `<label class="chk" style="justify-content:space-between">
+      <span style="min-width:82px">${s}</span>
+      <input type="number" id="inv-${s}" value="0" min="0" style="width:70px" oninput="updateBudget()">
+      <button type="button" class="ghost" style="padding:1px 7px;font-size:11px" onclick="maxInvest('${s}')">max</button>
+    </label>`).join('');
+  updateBudget();
+}
+function investValues(){const o={};for(const s of Object.keys(TIERS)){const v=+$('inv-'+s).value||0;if(v>0)o[s]=v}return o}
+function updateBudget(){
+  const spent=Object.entries(investValues()).reduce((a,[s,v])=>a+costOf(s,v),0);
+  const left=budget()-spent;
+  $('budget').innerHTML=left>=0
+    ?`<b style="color:var(--accent2)">${left}</b> points restants sur ${budget()}`
+    :`<b style="color:var(--err)">dépassement de ${-left} points</b>`;
+}
+function maxInvest(stat){
+  $('inv-'+stat).value=0;
+  const others=Object.entries(investValues()).reduce((a,[s,v])=>a+costOf(s,v),0);
+  let left=budget()-others,v=0;
+  while(left>=unitCost(v,TIERS[stat])){left-=unitCost(v,TIERS[stat]);v++}
+  $('inv-'+stat).value=v; updateBudget();
+}
+
+let BANNED=new Set();
+function banItem(name){BANNED.add(name);renderBanned();submitBuild()}
+function unban(name){BANNED.delete(name);renderBanned()}
+function renderBanned(){
+  $('bannedzone').style.display=BANNED.size?'block':'none';
+  $('bannedchips').innerHTML=[...BANNED].map(n=>
+    `<span class="chip" style="cursor:pointer" title="réintégrer" onclick="unban('${esc(n).replace(/'/g,"\\'")}')">✕ ${esc(n)}</span>`).join('');
+}
+// Items imposés — raccourcis pour les classiques.
+const QUICK_FORCE=['Gelano','Dofus Ocre','Dofus Pourpre'];
+let FORCED=new Set();
+function renderQuick(){
+  $('quickforce').innerHTML=QUICK_FORCE.filter(n=>!FORCED.has(n)).map(n=>
+    `<button type="button" class="ghost" style="padding:3px 11px;font-size:12px"
+      onclick="addForced('${n}')">＋ ${n}</button>`).join(' ');
+}
+function addForced(name){
+  if(!name)return;
+  FORCED.add(name); saveForced(); renderForced();
+}
+function addForcedFromInput(){
+  const v=$('itemsearch').value.trim();
+  if(v){addForced(v);$('itemsearch').value=''}
+}
+function unforce(name){FORCED.delete(name);saveForced();renderForced()}
+function renderForced(){
+  $('forcedchips').innerHTML=[...FORCED].map(n=>
+    `<span class="chip" style="cursor:pointer" title="retirer"
+      onclick="unforce('${esc(n).replace(/'/g,"\\'")}')">✕ ${esc(n)}</span>`).join('');
+  renderQuick();
+}
+function saveForced(){
+  try{localStorage.setItem('dofus-opti.forced',JSON.stringify([...FORCED]))}catch(e){}
+}
+function restoreForced(){
+  try{FORCED=new Set(JSON.parse(localStorage.getItem('dofus-opti.forced')||'[]'))}catch(e){}
+  renderForced();
+}
+let lookupTimer=null;
+document.addEventListener('input',e=>{
+  const id=e.target.id;
+  if(id!=='target'&&id!=='itemsearch')return;
+  clearTimeout(lookupTimer);
+  lookupTimer=setTimeout(async()=>{
+    const q=e.target.value.trim(); if(q.length<2)return;
+    if(id==='target'){
+      const names=await (await fetch(`/api/monsters?q=${encodeURIComponent(q)}`)).json();
+      $('monsterlist').innerHTML=names.map(n=>`<option value="${esc(n)}">`).join('');
+    }else{
+      const items=await (await fetch(
+        `/api/items?q=${encodeURIComponent(q)}&level=${$('level').value}`)).json();
+      $('itemlist').innerHTML=items.map(i=>
+        `<option value="${esc(i.name)}">${i.slot} · niv.${i.level}</option>`).join('');
+    }
+  },250);
+});
+function addBound(){
+  const div=document.createElement('div');div.className='row';div.style.marginTop='6px';
+  div.innerHTML=`<div><select name="bstat">${META.bounds.map(b=>`<option>${b}</option>`).join('')}</select></div>
+    <div><input type="number" name="bmin" placeholder="min"></div>
+    <div><input type="number" name="bmax" placeholder="max"></div>
+    <div><input type="number" name="bexact" placeholder="exact"></div>`;
+  $('advanced').appendChild(div);
+}
+function checked(name){return [...document.querySelectorAll(`input[name=${name}]:checked`)].map(i=>i.value)}
+
+function buildPayload(){
+  const bounds=[];
+  if($('c-pa').value!=='')bounds.push({stat:'pa',exact:$('c-pa').value});
+  if($('c-pm').value!=='')bounds.push({stat:'pm',exact:$('c-pm').value});
+  if($('c-po').value!=='')bounds.push({stat:'po',min:$('c-po').value});
+  for(const row of $('advanced').children){
+    const g=n=>row.querySelector(`[name=${n}]`)?.value??'';
+    if(g('bmin')||g('bmax')||g('bexact'))
+      bounds.push({stat:g('bstat'),min:g('bmin'),max:g('bmax'),exact:g('bexact')});
+  }
+  const custom=[];
+  for(const part of $('customitems').value.split(';')){
+    const t=part.trim(); if(t)custom.push(t);
+  }
+  return {
+    custom, forced:[...FORCED],
+    breed:$('breed').value, level:+$('level').value, elements:checked('el'),
+    bounds, min_hp:$('c-hp').value||null,
+    invest_manual:investValues(), banned:[...BANNED],
+    scrolls:+$('scrolls').value||0, exos:checked('exo'),
+    crit_policy:$('critpol').value, roll:$('roll').value, charges:$('charges').value,
+    exclude_mount:!$('mount').checked, allow_prysmaradites:$('prysma').checked,
+    dofus:dofusMode()==='all'?null:checked('df'),
+    spells:checked('sp'),
+    target:$('target').value.trim()||null,
+    time_limit:+$('tl').value||45,
+    build_name:$('bname').value.trim()||null,
+  };
+}
+
+async function submitBuild(){
+  const p=buildPayload();
+  if(!p.elements.length){showStatus('Choisissez au moins un élément.',true);return}
+  $('go').disabled=true;$('result').style.display='none';$('publink').textContent='';
+  showStatus('<span class="spin"></span>Envoi…');
+  const r=await fetch('/api/optimize',{method:'POST',
+    headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});
+  if(!r.ok){showStatus('Erreur : '+esc((await r.json()).detail||r.status),true);$('go').disabled=false;return}
+  JOB=(await r.json()).job_id;
+  TIMER=setInterval(poll,1500); poll();
+}
+async function poll(){
+  const s=await (await fetch(`/api/jobs/${JOB}`)).json();
+  if(s.status==='queued')showStatus(`<span class="spin"></span>En file (${s.queued_before} devant)…`);
+  else if(s.status==='running')showStatus(`<span class="spin"></span>Calcul en cours… ${s.elapsed??0} s`);
+  else{
+    clearInterval(TIMER);$('go').disabled=false;
+    if(s.status==='error'){showStatus('Échec : '+esc(s.error),true);return}
+    $('status').style.display='none'; render(s.result);
+  }
+}
+function showStatus(html,err){const el=$('status');el.style.display='block';
+  el.className=err?'err':'';el.innerHTML=html}
+
+function render(r){
+  $('result').style.display='block';
+  $('r-dmg').textContent=r.damage.toLocaleString('fr-FR');
+  $('r-status').textContent=`${r.status} · ${r.iterations} itération(s)`;
+  $('r-rot').textContent='Rotation : '+r.rotation;
+  $('r-items').innerHTML=r.items.map(i=>{
+    const ban=i.name.endsWith(' (perso)')?'':
+      `<td style="width:26px"><button class="ghost" style="padding:0 7px;font-size:12px"
+        title="exclure cet item et relancer" onclick="banItem('${esc(i.name).replace(/'/g,"\\'")}')">✕</button></td>`;
+    return `<tr><td class="slot">${i.slot}</td><td>${esc(i.name)} <small style="color:var(--dim)">niv.${i.level}</small></td>
+     <td class="set">${i.set?esc(i.set):''}</td>${ban}</tr>`}).join('');
+  const T=r.totals, order=['pa','pm','po','force','intelligence','chance','agilite',
+    'puissance','dommages','critique_pct','dommages_critiques','vitalite'];
+  $('r-totals').innerHTML=order.filter(k=>T[k]).map(k=>
+    `<span class="chip">${k.replace('_pct',' %').replace('_',' ')} <b>${T[k]}</b></span>`).join('')
+    +`<span class="chip">PV <b>${r.hp}</b></span>`;
+  $('r-sets').innerHTML=r.sets.map(s=>
+    `<div class="note">◆ <b style="color:var(--text)">${esc(s.name)}</b> ${s.worn}/${s.total} — ${esc(s.bonus.join(', '))}</div>`).join('');
+  $('r-alloc').innerHTML=r.allocations.map(esc).join('<br>');
+  $('r-pool').innerHTML=(r.custom_notes||[]).map(n=>`Item perso : ${esc(n)}<br>`).join('')
+    +`Pool : ${r.pool.kept} candidats (${r.pool.dominated} dominés, `
+    +`${r.pool.prysmaradites_removed} prysmaradites et ${r.pool.unobtainable_removed} inobtenables écartés)`;
+  $('r-warn').innerHTML=(r.custom_unused||[]).map(n=>
+      `<div class="warn">⚠ ${esc(n)} disponible mais non retenu — un autre item fait mieux
+       sous ces contraintes. Ajoutez-le aux <b>items imposés</b> pour forcer,
+       ou posez la contrainte (ex. PM exact) qui rend son bonus utile.</div>`).join('')
+    +(r.export_warnings||[]).map(w=>`<div class="warn">⚠ ${esc(w)}</div>`).join('');
+}
+async function publish(){
+  $('pub').disabled=true;
+  const r=await fetch(`/api/publish/${JOB}`,{method:'POST'});
+  if(!r.ok){$('publink').textContent='échec de publication';$('pub').disabled=false;return}
+  const {url}=await r.json();
+  $('publink').innerHTML=`<a href="${url}" target="_blank" style="color:var(--accent2)">${url}</a>`;
+}
+boot();
+</script>
+</body>
+</html>
