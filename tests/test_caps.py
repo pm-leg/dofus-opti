@@ -72,38 +72,59 @@ def test_range_cap_is_six():
     assert MAX_RANGE == 6
 
 
-def test_resistances_are_not_capped_in_the_model():
-    """41 builds publics dépassent 50 % : contraindre le total serait faux.
-
-    Le plafond de 50 porte sur la réduction appliquée en combat, pas sur la
-    caractéristique affichée.
-    """
+def test_the_total_resistance_is_not_bounded_by_the_model():
+    """Un item retenu pour d'autres qualités peut porter la résistance au-delà
+    de 50 : ce n'est pas un défaut, et l'interdire écarterait de bons builds."""
     total = _maximise(_generous("res_pct_terre", per_item=15), StatKey.RES_PCT_TERRE)
-    assert total > MAX_RESISTANCE_PCT, "le modèle ne doit pas brider la stat"
+    assert total > MAX_RESISTANCE_PCT
 
 
-def test_an_excessive_resistance_constraint_is_flagged_not_refused():
+def test_an_excessive_resistance_demand_is_brought_back_to_the_cap():
+    """Exiger 70 % ferait payer des emplacements pour un gain nul.
+
+    Le jeu n'affiche jamais plus de 50 : on ramène la demande et on le dit.
+    """
     request = BuildRequest(
         level=200, breed="Iop", elements={"terre"},
         bounds={StatKey.RES_PCT_TERRE: StatBound.at_least(70)},
     )
-    warnings = request.pointless_constraints()
-    assert len(warnings) == 1
-    assert "res_pct_terre" in warnings[0]
-    assert "50" in warnings[0]
+    adjusted, notes = request.clamped_bounds()
 
-    # La contrainte reste satisfaisable : on avertit, on n'interdit pas.
-    total = _maximise(_generous("res_pct_terre", per_item=15),
-                      StatKey.RES_PCT_TERRE, request)
-    assert total is not None and total >= 70
+    assert adjusted[StatKey.RES_PCT_TERRE].minimum == MAX_RESISTANCE_PCT
+    assert len(notes) == 1
+    assert "res_pct_terre" in notes[0] and "50" in notes[0]
+    # La requête d'origine n'est pas touchée.
+    assert request.bounds[StatKey.RES_PCT_TERRE].minimum == 70
 
 
-def test_a_reasonable_resistance_constraint_is_silent():
+def test_a_maximum_on_resistance_is_left_alone():
+    """Seul le plancher est ramené : un plafond posé par le joueur reste sien."""
+    request = BuildRequest(
+        level=200, breed="Iop", elements={"terre"},
+        bounds={StatKey.RES_PCT_TERRE: StatBound(minimum=70, maximum=80)},
+    )
+    adjusted, _ = request.clamped_bounds()
+    assert adjusted[StatKey.RES_PCT_TERRE].maximum == 80
+
+
+def test_a_reasonable_resistance_demand_is_untouched():
     request = BuildRequest(
         level=200, breed="Iop", elements={"terre"},
         bounds={StatKey.RES_PCT_TERRE: StatBound.at_least(40)},
     )
-    assert request.pointless_constraints() == []
+    adjusted, notes = request.clamped_bounds()
+    assert notes == []
+    assert adjusted == request.bounds
+
+
+def test_other_statistics_are_never_clamped():
+    request = BuildRequest(
+        level=200, breed="Iop", elements={"terre"},
+        bounds={StatKey.VITALITE: StatBound.at_least(3000)},
+    )
+    adjusted, notes = request.clamped_bounds()
+    assert notes == []
+    assert adjusted[StatKey.VITALITE].minimum == 3000
 
 
 def test_an_exact_range_above_the_cap_is_infeasible():

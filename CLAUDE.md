@@ -46,10 +46,10 @@ les données. Les modifier sans preuve serait une régression.
   on investit comme si la caractéristique partait de zéro, le parchemin s'ajoute
   au total. Un Iop 175 parcheminé atteint 467 de Force, pas 392.
 - **Portée plafonnée à 6.** Même relevé que les PA : 139 builds à 6, 21 au-dessus.
-- **Les résistances plafonnent à 50 %, mais côté *réduction*, pas côté
-  caractéristique.** 41 builds publics sur 1 500 affichent davantage, jusqu'à 81.
-  Contraindre le total dans le modèle rendrait infaisables des builds légaux :
-  on avertit que le surplus ne sert à rien, on n'interdit pas.
+- **Les résistances en pourcentage plafonnent à 50 % :** le jeu n'en affiche
+  jamais davantage. Exiger plus se ramène à 50, sinon le solveur paierait des
+  emplacements entiers pour un gain nul. Le **total** du build n'est pas borné
+  pour autant : un item retenu pour d'autres qualités peut le dépasser.
 - **Les résistances fixes s'appliquent avant les résistances en pourcentage.**
 - **Un sort à taux critique nul ne peut pas critiquer**, quelle que soit la
   statistique Critique.
@@ -82,6 +82,12 @@ paraît douteuse, on interroge les données publiques. Les mécaniques ci-dessus
 **Un chiffre suspect est une piste, pas un détail.** « 0 jet sur la durée »,
 « 587 effets mais 96 retenus », « 22 PA » : les trois ont mené à un bug réel ou à
 une limite à documenter. Les réconcilier avant de continuer.
+
+**DofusBook est un éditeur, pas une autorité.** Il somme sans appliquer aucune
+règle : on y trouve des builds à 18 PA et à 81 % de résistance. Sa distribution
+sert à *repérer* un plafond — la masse s'arrête net à 12 PA, 6 PM, 6 PO — jamais
+à prouver qu'il n'y en a pas. La queue au-delà du pic est du bruit de saisie.
+Cette confusion a déjà produit une conclusion fausse sur les résistances.
 
 **Ne jamais ignorer une contrainte en silence.** Un item imposé hors du pool
 levait autrefois zéro erreur ; l'utilisateur croyait à un arbitrage du solveur.

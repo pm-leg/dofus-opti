@@ -24,12 +24,14 @@ MAX_MOVEMENT_POINTS = 6
 #: des saisies d'éditeur, qui ne vérifie aucune règle du jeu.
 MAX_RANGE = 6
 
-#: Plafond de la **réduction** apportée par une résistance en pourcentage.
+#: Plafond des résistances en pourcentage. Le jeu n'en affiche jamais plus de 50 :
+#: tout ce qui dépasse est perdu.
 #:
-#: À ne pas confondre avec un plafond sur la caractéristique : 41 builds publics
-#: sur 1 500 affichent plus de 50 %, jusqu'à 81. Le surplus existe mais ne sert à
-#: rien. Contraindre le total à 50 rendrait donc infaisables des builds légaux ;
-#: on se contente d'avertir quand un joueur en demande davantage.
+#: Des builds publics affichent davantage — jusqu'à 81 — mais DofusBook est un
+#: éditeur qui somme sans appliquer les règles, tout comme il laisse saisir 18 PA.
+#: Cette valeur ne borne pas le **total** du build : un item retenu pour d'autres
+#: qualités peut le porter au-delà sans que ce soit un défaut. Elle borne ce qu'il
+#: est utile de **demander** — voir `BuildRequest.clamped_bounds`.
 MAX_RESISTANCE_PCT = 50
 
 

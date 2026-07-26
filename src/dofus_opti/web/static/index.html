@@ -405,7 +405,11 @@ function render(r){
   $('publink').textContent='';
   $('r-dmg').textContent=r.damage.toLocaleString('fr-FR');
   $('r-status').textContent=`${r.status} · ${r.iterations} itération(s)`;
-  $('r-rot').textContent='Rotation : '+r.rotation;
+  $('r-rot').innerHTML='Rotation : '+esc(r.rotation)
+    +(r.status==='OPTIMAL'?''
+      :`<div class="warn">⚠ optimalité non prouvée : le temps de calcul a été
+         atteint avant la fin de la recherche. Il existe peut-être mieux, et deux
+         lancements identiques peuvent différer. Augmentez le temps de calcul.</div>`);
   $('r-items').innerHTML=r.items.map(i=>{
     const ban=i.name.endsWith(' (perso)')?'':
       `<td style="width:26px"><button class="ghost" style="padding:0 7px;font-size:12px"

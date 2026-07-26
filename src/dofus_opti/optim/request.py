@@ -122,20 +122,30 @@ class BuildRequest:
     def describe_constraints(self) -> list[str]:
         return [bound.describe(key) for key, bound in sorted(self.bounds.items())]
 
-    def pointless_constraints(self) -> list[str]:
-        """Contraintes satisfiables mais sans effet en jeu.
+    def clamped_bounds(self) -> tuple[dict[StatKey, StatBound], list[str]]:
+        """Ramène les exigences de résistance au plafond du jeu.
 
-        Une résistance au-delà de 50 % s'affiche sur la fiche mais ne réduit rien
-        de plus : le jeu plafonne la réduction, pas la caractéristique. On le
-        signale sans interdire — le build reste légal, il gaspille simplement.
+        Le jeu n'affiche jamais plus de 50 % de résistance. Exiger davantage
+        ferait acheter au solveur des emplacements entiers pour un gain nul —
+        avertir sans corriger reviendrait à laisser gaspiller sciemment.
+
+        On ne borne que la **demande**, pas le total : un item retenu pour
+        d'autres qualités peut porter la résistance au-delà, et ce n'est pas un
+        défaut.
         """
-        warnings = []
+        adjusted = dict(self.bounds)
+        notes: list[str] = []
+
         for key, bound in sorted(self.bounds.items()):
             if not key.value.startswith("res_pct_"):
                 continue
-            if bound.minimum is not None and bound.minimum > MAX_RESISTANCE_PCT:
-                warnings.append(
-                    f"{key.value} ≥ {bound.minimum} : au-delà de "
-                    f"{MAX_RESISTANCE_PCT} %, la réduction n'augmente plus"
-                )
-        return warnings
+            if bound.minimum is None or bound.minimum <= MAX_RESISTANCE_PCT:
+                continue
+            adjusted[key] = StatBound(
+                minimum=MAX_RESISTANCE_PCT, maximum=bound.maximum
+            )
+            notes.append(
+                f"{key.value} ≥ {bound.minimum} ramené à {MAX_RESISTANCE_PCT} : "
+                "le jeu n'affiche pas plus, le surplus serait perdu"
+            )
+        return adjusted, notes

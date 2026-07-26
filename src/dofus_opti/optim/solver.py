@@ -276,6 +276,12 @@ def optimize(
     # là où 90 suffisaient, en payant des items pour rien.
     request = _cap_useless_critical(request, spells)
 
+    # Une résistance exigée au-delà du plafond du jeu ferait payer des
+    # emplacements pour un gain nul : on ramène la demande, en le disant.
+    adjusted, clamp_notes = request.clamped_bounds()
+    if clamp_notes:
+        request = replace(request, bounds=adjusted)
+
     point = seed_vector(request)
     weights = estimate_weights(spells, point, request)
 
@@ -297,11 +303,14 @@ def optimize(
         remaining = deadline - time.monotonic()
         if remaining < MIN_ITERATION_SECONDS:
             break
-        share = max(MIN_ITERATION_SECONDS, remaining / (max_iterations - iteration + 1))
 
+        # Chaque itération dispose de **tout** le temps restant. Le répartir à
+        # l'avance affamerait la première, qui est celle qui produit la solution :
+        # sur un niveau 200, un cinquième du budget ne suffit même pas à en
+        # trouver une. Une itération qui prouve l'optimalité tôt rend le reste
+        # aux suivantes.
         status, totals, selected, notes = _solve_once(
-            items, sets, request, weights, tracked,
-            time_limit=min(remaining, share),
+            items, sets, request, weights, tracked, time_limit=remaining,
         )
         if totals is None:
             break
@@ -325,11 +334,10 @@ def optimize(
         weights = estimate_weights(spells, stats, request)
 
     if best is not None:
-        best.notes.extend(request.pointless_constraints())
+        best.notes.extend(clamp_notes)
+        return best
 
-    if best is None:
-        return BuildSolution(
-            [], {}, 0.0, best_rotation([], StatVector()), status, 0, pool_report,
-            notes=notes + ["aucune solution ne satisfait les contraintes"],
-        )
-    return best
+    return BuildSolution(
+        [], {}, 0.0, best_rotation([], StatVector()), status, 0, pool_report,
+        notes=notes + clamp_notes + ["aucune solution ne satisfait les contraintes"],
+    )
