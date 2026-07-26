@@ -211,7 +211,11 @@ class OptimizerService:
 
         # La validation se fait à la soumission : une erreur de formulaire doit
         # répondre immédiatement, pas au fond de la file.
-        self._assemble(payload, self.connect())
+        conn = self.connect()
+        try:
+            self._assemble(payload, conn)
+        finally:
+            conn.close()
 
         job = Job(job_id=str(uuid.uuid4()), payload=payload)
         self._remember(job)
