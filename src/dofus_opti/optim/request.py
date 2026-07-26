@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
 from ..combat.formula import CritPolicy, FormulaVariant, Target
+from ..combat.stats import MAX_RESISTANCE_PCT
 from ..model.items import Item, Slot
 from ..model.stats import StatKey
 
@@ -120,3 +121,31 @@ class BuildRequest:
 
     def describe_constraints(self) -> list[str]:
         return [bound.describe(key) for key, bound in sorted(self.bounds.items())]
+
+    def clamped_bounds(self) -> tuple[dict[StatKey, StatBound], list[str]]:
+        """Ramène les exigences de résistance au plafond du jeu.
+
+        Le jeu n'affiche jamais plus de 50 % de résistance. Exiger davantage
+        ferait acheter au solveur des emplacements entiers pour un gain nul —
+        avertir sans corriger reviendrait à laisser gaspiller sciemment.
+
+        On ne borne que la **demande**, pas le total : un item retenu pour
+        d'autres qualités peut porter la résistance au-delà, et ce n'est pas un
+        défaut.
+        """
+        adjusted = dict(self.bounds)
+        notes: list[str] = []
+
+        for key, bound in sorted(self.bounds.items()):
+            if not key.value.startswith("res_pct_"):
+                continue
+            if bound.minimum is None or bound.minimum <= MAX_RESISTANCE_PCT:
+                continue
+            adjusted[key] = StatBound(
+                minimum=MAX_RESISTANCE_PCT, maximum=bound.maximum
+            )
+            notes.append(
+                f"{key.value} ≥ {bound.minimum} ramené à {MAX_RESISTANCE_PCT} : "
+                "le jeu n'affiche pas plus, le surplus serait perdu"
+            )
+        return adjusted, notes

@@ -400,9 +400,16 @@ function showStatus(html,err){const el=$('status');el.style.display='block';
 
 function render(r){
   $('result').style.display='block';
+  // Nouveau résultat : il est publiable, quel qu'ait été le sort du précédent.
+  $('pub').disabled=false; $('pub').textContent='Publier sur DofusDB (public)';
+  $('publink').textContent='';
   $('r-dmg').textContent=r.damage.toLocaleString('fr-FR');
   $('r-status').textContent=`${r.status} · ${r.iterations} itération(s)`;
-  $('r-rot').textContent='Rotation : '+r.rotation;
+  $('r-rot').innerHTML='Rotation : '+esc(r.rotation)
+    +(r.status==='OPTIMAL'?''
+      :`<div class="warn">⚠ optimalité non prouvée : le temps de calcul a été
+         atteint avant la fin de la recherche. Il existe peut-être mieux, et deux
+         lancements identiques peuvent différer. Augmentez le temps de calcul.</div>`);
   $('r-items').innerHTML=r.items.map(i=>{
     const ban=i.name.endsWith(' (perso)')?'':
       `<td style="width:26px"><button class="ghost" style="padding:0 7px;font-size:12px"
@@ -427,11 +434,25 @@ function render(r){
     +(r.export_warnings||[]).map(w=>`<div class="warn">⚠ ${esc(w)}</div>`).join('');
 }
 async function publish(){
-  $('pub').disabled=true;
-  const r=await fetch(`/api/publish/${JOB}`,{method:'POST'});
-  if(!r.ok){$('publink').textContent='échec de publication';$('pub').disabled=false;return}
-  const {url}=await r.json();
-  $('publink').innerHTML=`<a href="${url}" target="_blank" style="color:var(--accent2)">${url}</a>`;
+  const b=$('pub');
+  b.disabled=true; b.textContent='Publication…';
+  try{
+    const r=await fetch(`/api/publish/${JOB}`,{method:'POST'});
+    if(!r.ok){
+      const d=await r.json().catch(()=>({}));
+      $('publink').textContent='échec : '+(d.detail||r.status);
+      b.disabled=false; b.textContent='Publier sur DofusDB (public)';
+      return;
+    }
+    const {url}=await r.json();
+    $('publink').innerHTML=`<a href="${url}" target="_blank" style="color:var(--accent2)">${url}</a>`;
+    // Ce build-ci est publié : republier créerait un doublon chez DofusDB.
+    // Le bouton redeviendra actif au prochain résultat, via render().
+    b.textContent='Publié ✓';
+  }catch(e){
+    $('publink').textContent='échec : '+e;
+    b.disabled=false; b.textContent='Publier sur DofusDB (public)';
+  }
 }
 boot();
 </script>

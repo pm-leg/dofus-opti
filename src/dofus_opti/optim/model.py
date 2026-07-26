@@ -20,6 +20,7 @@ from ortools.sat.python import cp_model
 from ..combat.stats import (
     MAX_ACTION_POINTS,
     MAX_MOVEMENT_POINTS,
+    MAX_RANGE,
     base_action_points,
     base_movement_points,
 )
@@ -295,8 +296,15 @@ def build_model(
         totals[key] = expression
 
     # --- plafonds du jeu, indépendants de ce que demande le joueur
+    #
+    # Seules les ressources de tour sont réellement bornées par le jeu. Les
+    # résistances, elles, peuvent dépasser 50 % sur la fiche : c'est la réduction
+    # appliquée qui plafonne, pas la caractéristique. Les contraindre ici
+    # rendrait infaisables des builds parfaitement légaux.
     for key, cap in (
-        (StatKey.PA, MAX_ACTION_POINTS), (StatKey.PM, MAX_MOVEMENT_POINTS)
+        (StatKey.PA, MAX_ACTION_POINTS),
+        (StatKey.PM, MAX_MOVEMENT_POINTS),
+        (StatKey.PO, MAX_RANGE),
     ):
         if key in totals:
             model.Add(totals[key] <= cap)

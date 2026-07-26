@@ -45,6 +45,11 @@ les données. Les modifier sans preuve serait une régression.
 - **Les parchemins n'entrent pas dans le barème de coût** des points de niveau :
   on investit comme si la caractéristique partait de zéro, le parchemin s'ajoute
   au total. Un Iop 175 parcheminé atteint 467 de Force, pas 392.
+- **Portée plafonnée à 6.** Même relevé que les PA : 139 builds à 6, 21 au-dessus.
+- **Les résistances en pourcentage plafonnent à 50 % :** le jeu n'en affiche
+  jamais davantage. Exiger plus se ramène à 50, sinon le solveur paierait des
+  emplacements entiers pour un gain nul. Le **total** du build n'est pas borné
+  pour autant : un item retenu pour d'autres qualités peut le dépasser.
 - **Les résistances fixes s'appliquent avant les résistances en pourcentage.**
 - **Un sort à taux critique nul ne peut pas critiquer**, quelle que soit la
   statistique Critique.
@@ -78,6 +83,12 @@ paraît douteuse, on interroge les données publiques. Les mécaniques ci-dessus
 « 587 effets mais 96 retenus », « 22 PA » : les trois ont mené à un bug réel ou à
 une limite à documenter. Les réconcilier avant de continuer.
 
+**DofusBook est un éditeur, pas une autorité.** Il somme sans appliquer aucune
+règle : on y trouve des builds à 18 PA et à 81 % de résistance. Sa distribution
+sert à *repérer* un plafond — la masse s'arrête net à 12 PA, 6 PM, 6 PO — jamais
+à prouver qu'il n'y en a pas. La queue au-delà du pic est du bruit de saisie.
+Cette confusion a déjà produit une conclusion fausse sur les résistances.
+
 **Ne jamais ignorer une contrainte en silence.** Un item imposé hors du pool
 levait autrefois zéro erreur ; l'utilisateur croyait à un arbitrage du solveur.
 Toute contrainte impossible doit lever une exception explicite.
@@ -86,6 +97,12 @@ Toute contrainte impossible doit lever une exception explicite.
 d'infobulles. Le meilleur test disponible reste la comparaison avec un build de
 stuffeur reconnu : charger ses items, les évaluer avec notre moteur, vérifier
 qu'on l'égale ou le dépasse.
+
+**Ne rien modifier chez l'appelant.** `optimize()` reçoit une `BuildRequest` et
+ne doit jamais la muter : elle a longtemps injecté son plafond de Critique dans
+l'objet reçu, ce qui rendait le résultat dépendant de l'historique d'appels.
+`tests/test_solver_contract.py` verrouille ce contrat, ainsi que le fait que
+`time_limit` est un budget **global** et non par itération.
 
 **Écrire en français**, comme le reste du code et des commentaires. Les
 commentaires expliquent *pourquoi*, jamais *quoi*.

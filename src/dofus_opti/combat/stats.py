@@ -20,6 +20,20 @@ PA_BONUS_LEVEL = 100
 MAX_ACTION_POINTS = 12
 MAX_MOVEMENT_POINTS = 6
 
+#: Portée maximale. Même relevé : 139 builds à 6, et seulement 21 au-dessus —
+#: des saisies d'éditeur, qui ne vérifie aucune règle du jeu.
+MAX_RANGE = 6
+
+#: Plafond des résistances en pourcentage. Le jeu n'en affiche jamais plus de 50 :
+#: tout ce qui dépasse est perdu.
+#:
+#: Des builds publics affichent davantage — jusqu'à 81 — mais DofusBook est un
+#: éditeur qui somme sans appliquer les règles, tout comme il laisse saisir 18 PA.
+#: Cette valeur ne borne pas le **total** du build : un item retenu pour d'autres
+#: qualités peut le porter au-delà sans que ce soit un défaut. Elle borne ce qu'il
+#: est utile de **demander** — voir `BuildRequest.clamped_bounds`.
+MAX_RESISTANCE_PCT = 50
+
 
 def base_action_points(level: int) -> int:
     """PA de base à un niveau donné.

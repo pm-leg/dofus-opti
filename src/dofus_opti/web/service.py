@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import queue
 import sqlite3
+from collections import OrderedDict
 import threading
 import time
 import urllib.request
@@ -78,6 +79,12 @@ class Job:
     finished_at: float | None = None
 
 
+#: Au-delà, les plus anciennes entrées sont oubliées. Un service qui tourne des
+#: semaines ne doit pas accumuler des milliers de résultats de 50 Ko.
+MAX_JOBS = 200
+MAX_CACHE = 200
+
+
 class OptimizerService:
     def __init__(self, db_path: Path = DEFAULT_DB) -> None:
         if not db_path.exists():
@@ -86,12 +93,25 @@ class OptimizerService:
                 "Lancez d'abord `python -m dofus_opti.ingest.build`."
             )
         self.db_path = db_path
-        self.jobs: dict[str, Job] = {}
-        self.cache: dict[str, dict] = {}
+        # `OrderedDict` pour évincer les plus anciennes entrées.
+        self.jobs: OrderedDict[str, Job] = OrderedDict()
+        self.cache: OrderedDict[str, dict] = OrderedDict()
         self.queue: queue.Queue[str] = queue.Queue()
         self.lock = threading.Lock()
         self.worker = threading.Thread(target=self._run_worker, daemon=True)
         self.worker.start()
+
+    def _remember(self, job: Job) -> None:
+        """Enregistre une tâche, en oubliant les plus anciennes terminées."""
+        with self.lock:
+            self.jobs[job.job_id] = job
+            while len(self.jobs) > MAX_JOBS:
+                for job_id, old in self.jobs.items():
+                    if old.status in ("done", "error"):
+                        del self.jobs[job_id]
+                        break
+                else:
+                    break  # que des tâches en cours : on ne touche à rien
 
     # ------------------------------------------------------------ connexions
 
@@ -186,17 +206,19 @@ class OptimizerService:
         if cached is not None:
             job = Job(job_id=str(uuid.uuid4()), payload=payload,
                       status="done", result=cached)
-            with self.lock:
-                self.jobs[job.job_id] = job
+            self._remember(job)
             return {"job_id": job.job_id, "cached": True}
 
         # La validation se fait à la soumission : une erreur de formulaire doit
         # répondre immédiatement, pas au fond de la file.
-        self._assemble(payload, self.connect())
+        conn = self.connect()
+        try:
+            self._assemble(payload, conn)
+        finally:
+            conn.close()
 
         job = Job(job_id=str(uuid.uuid4()), payload=payload)
-        with self.lock:
-            self.jobs[job.job_id] = job
+        self._remember(job)
         self.queue.put(job.job_id)
         return {"job_id": job.job_id, "cached": False}
 
@@ -254,6 +276,8 @@ class OptimizerService:
                     job.status = "done"
                     job.finished_at = time.time()
                     self.cache[key] = result
+                    while len(self.cache) > MAX_CACHE:
+                        self.cache.popitem(last=False)
             except Exception as exc:  # noqa: BLE001 — remonté tel quel au client
                 with self.lock:
                     job.status = "error"
