@@ -20,6 +20,18 @@ PA_BONUS_LEVEL = 100
 MAX_ACTION_POINTS = 12
 MAX_MOVEMENT_POINTS = 6
 
+#: Portée maximale. Même relevé : 139 builds à 6, et seulement 21 au-dessus —
+#: des saisies d'éditeur, qui ne vérifie aucune règle du jeu.
+MAX_RANGE = 6
+
+#: Plafond de la **réduction** apportée par une résistance en pourcentage.
+#:
+#: À ne pas confondre avec un plafond sur la caractéristique : 41 builds publics
+#: sur 1 500 affichent plus de 50 %, jusqu'à 81. Le surplus existe mais ne sert à
+#: rien. Contraindre le total à 50 rendrait donc infaisables des builds légaux ;
+#: on se contente d'avertir quand un joueur en demande davantage.
+MAX_RESISTANCE_PCT = 50
+
 
 def base_action_points(level: int) -> int:
     """PA de base à un niveau donné.

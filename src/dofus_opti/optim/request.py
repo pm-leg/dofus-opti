@@ -6,6 +6,7 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
 from ..combat.formula import CritPolicy, FormulaVariant, Target
+from ..combat.stats import MAX_RESISTANCE_PCT
 from ..model.items import Item, Slot
 from ..model.stats import StatKey
 
@@ -120,3 +121,21 @@ class BuildRequest:
 
     def describe_constraints(self) -> list[str]:
         return [bound.describe(key) for key, bound in sorted(self.bounds.items())]
+
+    def pointless_constraints(self) -> list[str]:
+        """Contraintes satisfiables mais sans effet en jeu.
+
+        Une résistance au-delà de 50 % s'affiche sur la fiche mais ne réduit rien
+        de plus : le jeu plafonne la réduction, pas la caractéristique. On le
+        signale sans interdire — le build reste légal, il gaspille simplement.
+        """
+        warnings = []
+        for key, bound in sorted(self.bounds.items()):
+            if not key.value.startswith("res_pct_"):
+                continue
+            if bound.minimum is not None and bound.minimum > MAX_RESISTANCE_PCT:
+                warnings.append(
+                    f"{key.value} ≥ {bound.minimum} : au-delà de "
+                    f"{MAX_RESISTANCE_PCT} %, la réduction n'augmente plus"
+                )
+        return warnings

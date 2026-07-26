@@ -18,7 +18,8 @@ finaux`, et les `% dommages` contextuels sont marginaux.
 from __future__ import annotations
 
 import sqlite3
-from dataclasses import dataclass, field
+import time
+from dataclasses import dataclass, field, replace
 
 from ortools.sat.python import cp_model
 
@@ -51,6 +52,9 @@ DEFAULT_STEP = 25
 #: Caractéristiques dont l'effet sur les dégâts est en escalier : leur pente se
 #: mesure vers le bas, sinon elle est nulle entre deux seuils.
 STEPWISE_STATS = {StatKey.PA, StatKey.PM}
+
+#: En deçà, une itération n'a pas le temps de produire quoi que ce soit d'utile.
+MIN_ITERATION_SECONDS = 3.0
 
 #: point de départ de la linéarisation — un build de milieu de tableau, plus
 #: représentatif qu'un personnage nu.
@@ -197,6 +201,12 @@ def _solve_once(
     solver = cp_model.CpSolver()
     solver.parameters.max_time_in_seconds = time_limit
     solver.parameters.num_search_workers = 8
+    # Sans graine fixe, deux appels identiques rendent des builds différents dès
+    # que le plafond de temps interrompt la recherche avant la preuve : les huit
+    # fils explorent dans un ordre variable. La graine ne garantit pas le
+    # déterminisme absolu — seul un plafond en temps déterministe le ferait, au
+    # prix du débit — mais elle supprime la variabilité courante.
+    solver.parameters.random_seed = 20260726
     status = solver.Solve(built.model)
 
     if status not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
@@ -210,7 +220,7 @@ def _solve_once(
     )
 
 
-def _cap_useless_critical(request: BuildRequest, spells: list[Spell]) -> None:
+def _cap_useless_critical(request: BuildRequest, spells: list[Spell]) -> BuildRequest:
     """Plafonne la Critique à ce qui sert réellement.
 
     Le taux critique sature à 100 %. Le sort le plus dur à critiquer fixe donc le
@@ -219,20 +229,24 @@ def _cap_useless_critical(request: BuildRequest, spells: list[Spell]) -> None:
 
     On ne touche pas à un plafond déjà posé par le joueur, et on ne fait rien en
     politique `NEVER`, où la Critique ne sert à rien du tout.
+
+    **Rend une copie** : muter la requête reçue la rendrait dépendante de son
+    historique d'appels — un même objet réutilisé pour une autre classe
+    conserverait un plafond calculé sur les sorts de la précédente.
     """
     if request.crit_policy is CritPolicy.NEVER:
-        return
+        return request
     if request.bound(StatKey.CRITIQUE_PCT) is not None:
-        return
+        return request
 
     critable = [s.crit_probability for s in spells if s.can_crit]
     if not critable:
-        return
+        return request
 
     needed = max(0, 100 - min(critable))
-    existing = request.bounds.get(StatKey.CRITIQUE_PCT)
-    request.bounds[StatKey.CRITIQUE_PCT] = StatBound(
-        minimum=existing.minimum if existing else None, maximum=needed
+    return replace(
+        request,
+        bounds={**request.bounds, StatKey.CRITIQUE_PCT: StatBound(maximum=needed)},
     )
 
 
@@ -260,7 +274,7 @@ def optimize(
     # Au-delà de 100 % sur le sort le plus difficile à critiquer, chaque point de
     # Critique est perdu. Sans ce plafond le solveur en empile — il sortait 118 %
     # là où 90 suffisaient, en payant des items pour rien.
-    _cap_useless_critical(request, spells)
+    request = _cap_useless_critical(request, spells)
 
     point = seed_vector(request)
     weights = estimate_weights(spells, point, request)
@@ -274,9 +288,20 @@ def optimize(
     status = "INCONNU"
     notes: list[str] = []
 
+    # `time_limit` est un budget **global**, pas par itération : l'utilisateur
+    # qui demande 45 secondes n'en attend pas 225. Le temps non consommé par une
+    # itération qui prouve l'optimalité tôt profite aux suivantes.
+    deadline = time.monotonic() + time_limit
+
     for iteration in range(1, max_iterations + 1):
+        remaining = deadline - time.monotonic()
+        if remaining < MIN_ITERATION_SECONDS:
+            break
+        share = max(MIN_ITERATION_SECONDS, remaining / (max_iterations - iteration + 1))
+
         status, totals, selected, notes = _solve_once(
-            items, sets, request, weights, tracked, time_limit=time_limit
+            items, sets, request, weights, tracked,
+            time_limit=min(remaining, share),
         )
         if totals is None:
             break
@@ -298,6 +323,9 @@ def optimize(
 
         # Nouveau point de linéarisation : la pente n'est plus la même ici.
         weights = estimate_weights(spells, stats, request)
+
+    if best is not None:
+        best.notes.extend(request.pointless_constraints())
 
     if best is None:
         return BuildSolution(

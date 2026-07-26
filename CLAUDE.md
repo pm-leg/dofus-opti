@@ -45,6 +45,11 @@ les données. Les modifier sans preuve serait une régression.
 - **Les parchemins n'entrent pas dans le barème de coût** des points de niveau :
   on investit comme si la caractéristique partait de zéro, le parchemin s'ajoute
   au total. Un Iop 175 parcheminé atteint 467 de Force, pas 392.
+- **Portée plafonnée à 6.** Même relevé que les PA : 139 builds à 6, 21 au-dessus.
+- **Les résistances plafonnent à 50 %, mais côté *réduction*, pas côté
+  caractéristique.** 41 builds publics sur 1 500 affichent davantage, jusqu'à 81.
+  Contraindre le total dans le modèle rendrait infaisables des builds légaux :
+  on avertit que le surplus ne sert à rien, on n'interdit pas.
 - **Les résistances fixes s'appliquent avant les résistances en pourcentage.**
 - **Un sort à taux critique nul ne peut pas critiquer**, quelle que soit la
   statistique Critique.
@@ -86,6 +91,12 @@ Toute contrainte impossible doit lever une exception explicite.
 d'infobulles. Le meilleur test disponible reste la comparaison avec un build de
 stuffeur reconnu : charger ses items, les évaluer avec notre moteur, vérifier
 qu'on l'égale ou le dépasse.
+
+**Ne rien modifier chez l'appelant.** `optimize()` reçoit une `BuildRequest` et
+ne doit jamais la muter : elle a longtemps injecté son plafond de Critique dans
+l'objet reçu, ce qui rendait le résultat dépendant de l'historique d'appels.
+`tests/test_solver_contract.py` verrouille ce contrat, ainsi que le fait que
+`time_limit` est un budget **global** et non par itération.
 
 **Écrire en français**, comme le reste du code et des commentaires. Les
 commentaires expliquent *pourquoi*, jamais *quoi*.
